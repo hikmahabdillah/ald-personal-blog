@@ -1,5 +1,5 @@
 {
-  "name": "learn-astro-react",
+  "name": "aldrin-personal-blog",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@astrojs/react": "^4.4.2",
+    "@lucide/astro": "^0.562.0",
     "@tailwindcss/vite": "^4.1.18",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",

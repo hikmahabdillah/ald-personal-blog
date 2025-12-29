@@ -1,3 +1,9 @@
+---
+import "../styles/global.css";
+import { Github, Instagram, Linkedin } from '@lucide/astro';
+const {title} = Astro.props;
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
@@ -5,10 +11,25 @@
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>{title}</title>
 	</head>
 	<body>
-		<slot />
+		<div class="min-h-screen w-full max-w-5xl mx-auto p-4">
+			<!-- sidebar social media -->
+			<aside class="fixed bottom-0 flex flex-col items-center gap-4">
+				<a href=""><Github /></a>
+				<a href=""><Linkedin /></a>
+				<a href=""><Instagram /></a>
+				<div class="h-44 w-0.5 bg-neutral-900"></div>
+			</aside>
+			<!-- sidebar email -->
+			<aside class="fixed top-0 right-0 lg:right-auto xl:right-1/12 2xl:right-[15%] flex flex-col items-center mr-5 gap-4">
+				<div class="h-44 w-0.5 bg-neutral-900"></div>
+				<a href="mailto:hikmahaldrin44@gmail.com" class="[writing-mode:vertical-rl] font-medium tracking-widest text-sm hover:text-neutral-500 transition">hikmahaldrin44@gmail.com</a>
+			</aside>
+			<slot />
+			<div class="min-h-screen"></div>
+		</div>
 	</body>
 </html>
 

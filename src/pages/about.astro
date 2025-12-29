@@ -1,0 +1,15 @@
+---
+import Layout from "../layouts/Layout.astro"; 
+const aboutTitle = "About Me";
+const isVisible = false;
+const favSong = ["Song A", "Song B", "Song C"];
+---
+
+<Layout title={aboutTitle}>
+  {isVisible && <h1 class="text-3xl font-semibold underline">{aboutTitle}</h1>}
+  <ul>
+    {favSong.map(song => (
+      <li>{song}</li>
+    ))}
+  </ul>
+</Layout>
