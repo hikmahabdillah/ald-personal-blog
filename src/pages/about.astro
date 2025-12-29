@@ -2,9 +2,26 @@
 import Layout from "../layouts/Layout.astro";
 const aboutTitle = "About Me";
 import { Image } from "astro:assets";
-import profileImage from "../assets/profile-image.webp";
+import profileImage from "../assets/profile-image-light.webp";
 ---
 
 <Layout title={aboutTitle}>
-  <!-- <Image src={profileImage} class="w-72 " alt=""/> -->
+  <div
+    class="w-full mx-auto mt-52 flex items-center justify-center relative max-w-4xl"
+  >
+    <!-- <span class="text-8xl font-bold absolute top-8 left-0">"</span> -->
+    <div class="space-y-6">
+      <h1 class="text-6xl font-bold justify-self-start">
+        About <span class="text-[#0A8CFF]">Me_</span>
+      </h1>
+      <p class="font-medium text-lg max-w-lg text-justify text-neutral-600">
+        An Front End Developer and an Informatics Engineering Student at State
+        Polytechnic of Malang. Currently, I'm focusing on Front End
+        Development to build stunning and user-friendly web applications. I also
+        have an interest in UI/UX Design, and recently I’ve been
+        exploring Blockchain & Web3.
+      </p>
+    </div>
+    <Image src={profileImage} class="w-full max-w-80" alt="Profile Image" />
+  </div>
 </Layout>
