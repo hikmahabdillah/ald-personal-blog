@@ -1,0 +1,21 @@
+---
+import { Image } from "astro:assets";
+import main_logo from "../assets/main_logo_black.webp";
+---
+
+<nav
+  class="fixed top-8 px-7 lg:px-14 py-4 left-1/2 transform -translate-x-1/2 w-[95%] rounded-full border border-gray-300 shadow-sm shadow-gray-200 lg:w-full max-w-5xl mx-auto bg-white/80 backdrop-blur-md flex justify-between items-center"
+>
+  <div class="logo flex items-center">
+    <Image src={main_logo} alt="Main Logo" class="h-10 w-10" />
+    <span class="ml-3 text-xl font-bold">Aldrin.</span>
+  </div>
+  <ul class="nav-links flex items-center gap-6">
+    <li class="hover:scale-90 transition duration-500">
+      <a href="/about" class="font-medium">About</a>
+    </li>
+    <li class="hover:scale-90 transition duration-500">
+      <a href="/blog" class="font-medium">Blog</a>
+    </li>
+  </ul>
+</nav>
