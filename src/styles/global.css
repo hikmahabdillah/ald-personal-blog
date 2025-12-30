@@ -1,4 +1,13 @@
 @import "tailwindcss";
 @theme {
   --font-sans: "Inter", sans-serif;
+
+  /* color customizations */
+  --color-primary: #0a8cff;
+  --color-dark: #151515;
+  --color-secondary: #656464;
+}
+
+html {
+  scroll-behavior: smooth;
 }

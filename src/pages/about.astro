@@ -6,16 +6,16 @@ import profileImage from "../assets/profile-image-light.webp";
 ---
 
 <Layout title={aboutTitle}>
-  <div
+  <main
     class="w-full mx-auto mt-36 lg:mt-52 flex items-center justify-center relative max-w-4xl lg:flex-row flex-col-reverse gap-8 lg:gap-16"
   >
     <!-- <span class="text-8xl font-bold absolute top-8 left-0">"</span> -->
     <div class="space-y-3 sm:space-y-6 pl-9 lg:pl-0">
-      <h1 class="text-3xl sm:text-6xl font-bold justify-self-start">
-        About <span class="text-[#0A8CFF]">Me_</span>
+      <h1 class="text-4xl sm:text-6xl font-bold justify-self-start">
+        About <span class="text-primary">Me_</span>
       </h1>
       <p
-        class="font-medium text-sm sm:text-lg max-w-lg text-justify text-neutral-600"
+        class="font-medium text-sm sm:text-lg max-w-lg text-justify text-secondary"
       >
         An Front End Developer and an Informatics Engineering Student at State
         Polytechnic of Malang. Currently, I'm focusing on Front End
@@ -25,5 +25,5 @@ import profileImage from "../assets/profile-image-light.webp";
       </p>
     </div>
     <Image src={profileImage} class="w-full max-w-80 z-0" alt="Profile Image" />
-  </div>
+  </main>
 </Layout>

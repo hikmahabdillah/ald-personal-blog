@@ -1,9 +1,31 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import { Image } from "astro:assets";
+import avatarBlog from "../assets/writing-pose.webp";
 ---
 
 <Layout title="Home | Aldrin's Blog">
-	<h1 class="text-3xl font-semibold italic">astro</h1>
+  <main
+    class="w-full mx-auto mt-36 flex items-center justify-center relative max-w-4xl gap-8 lg:gap-16"
+  >
+    <section
+      class="flex sm:justify-between gap-8 w-full sm:flex-row flex-col justify-center items-center"
+    >
+      <header>
+        <h1 class="text-4xl sm:text-6xl font-bold leading-tight">
+          Aldrin's <br />Thoughts
+        </h1>
+        <p class="text-secondary font-medium mt-4">
+          Here, I write about tech and life.
+        </p>
+      </header>
+      <Image
+        src={avatarBlog}
+        class="w-full max-w-48 z-0 me-10 lg:me-0"
+        alt="Writing Pose"
+      />
+    </section>
+  </main>
 </Layout>
