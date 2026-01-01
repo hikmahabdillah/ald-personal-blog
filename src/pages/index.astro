@@ -4,16 +4,18 @@ import Layout from "../layouts/Layout.astro";
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 import { Image } from "astro:assets";
 import avatarBlog from "../assets/writing-pose.webp";
+import ArticleSection from "../components/section/ArticleSection.astro";
 ---
 
 <Layout title="Home | Aldrin's Blog">
   <main
-    class="w-full mx-auto mt-36 flex items-center justify-center relative max-w-4xl gap-8 lg:gap-16"
+    class="w-full mx-auto mt-36 flex flex-col items-center justify-center relative max-w-4xl"
   >
+    <!-- Hero Section -->
     <section
       class="flex sm:justify-between gap-8 w-full sm:flex-row flex-col justify-center items-center"
     >
-      <header>
+      <header class="ms-10 lg:ms-0">
         <h1 class="text-4xl sm:text-6xl font-bold leading-tight">
           Aldrin's <br />Thoughts
         </h1>
@@ -23,9 +25,11 @@ import avatarBlog from "../assets/writing-pose.webp";
       </header>
       <Image
         src={avatarBlog}
-        class="w-full max-w-48 z-0 me-10 lg:me-0"
+        class="w-full max-w-48 -z-10 me-10 lg:me-0 -mb-4"
         alt="Writing Pose"
       />
     </section>
+    <!-- Article Section -->
+    <ArticleSection />
   </main>
 </Layout>
