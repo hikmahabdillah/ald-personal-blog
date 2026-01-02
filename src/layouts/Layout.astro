@@ -28,7 +28,9 @@ import icon from "../assets/black-h44 w bg-white.jpeg";
     <div class="min-h-screen w-full max-w-5xl mx-auto p-4 relative text-dark">
       <Navbar />
       <!-- sidebar social media -->
-      <aside class="fixed bottom-0 flex flex-col items-center gap-4 z-10">
+      <aside
+        class="hidden fixed bottom-0 md:flex md:flex-col md:items-center md:gap-4 md:z-10"
+      >
         <a
           target="_blank"
           href="https://github.com/hikmahabdillah"
@@ -51,7 +53,7 @@ import icon from "../assets/black-h44 w bg-white.jpeg";
       </aside>
       <!-- sidebar email -->
       <aside
-        class="z-10 fixed top-32 right-0 lg:right-auto xl:right-1/12 2xl:right-[15%] flex flex-col items-center mr-5 gap-4"
+        class="hidden z-10 fixed top-32 right-0 lg:right-auto xl:right-1/12 2xl:right-[15%] md:flex md:flex-col md:items-center md:mr-6 lg:mr-10 md:gap-4"
       >
         <div class="h-44 w-0.5 bg-dark"></div>
         <a
