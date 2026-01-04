@@ -1,0 +1,18 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const metaData = {
+  title: "Blog | Aldrin's Blog",
+  description:
+    "Read the latest articles and updates on technology and life on Aldrin's Personal Blog.",
+};
+---
+
+<Layout title={metaData.title} description={metaData.description}>
+  <main
+    class="min-h-screen w-full mx-auto mt-36 flex flex-col items-center relative"
+  >
+    <h1 class="text-5xl font-bold my-12">Blog</h1>
+    <!-- Blog content  -->
+  </main>
+</Layout>

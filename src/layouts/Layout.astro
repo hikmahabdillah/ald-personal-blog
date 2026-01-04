@@ -1,26 +1,23 @@
 ---
 import Navbar from "../components/Navbar.astro";
 import "../styles/global.css";
-const { title } = Astro.props;
-import icon from "../assets/black-h44 w bg-white.jpeg";
 import Footer from "../components/Footer.astro";
+import HeaderLayout from "./HeaderLayout.astro";
+
+// type definition for props
+interface Props {
+  title: string;
+  description: string;
+}
+const {
+  title = "Aldrin's Personal Blog",
+  description = "Welcome to Aldrin's Personal Blog, where I share my thoughts on web development, programming, and technology.",
+} = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/x-icon" href={icon.src} />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-      rel="stylesheet"
-    />
-    <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
-  </head>
+  <HeaderLayout {title} {description} />
   <body>
     <div
       class="absolute bg-gradient-to-br from-primary via-[primary/60] to-transparent -z-10 top-0 left-0 size-[300px] lg:size-[500px]"
@@ -68,8 +65,7 @@ import Footer from "../components/Footer.astro";
       <slot />
       <Footer />
     </div>
-  </body>
-  <script
+  </body><script
     src="https://kit.fontawesome.com/6a1f5752a8.js"
     crossorigin="anonymous"></script>
   <!-- <div class="min-h-screen"></div> -->

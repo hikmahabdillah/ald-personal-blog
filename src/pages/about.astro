@@ -1,13 +1,18 @@
 ---
 import Layout from "../layouts/Layout.astro";
-const aboutTitle = "About Me";
 import { Image } from "astro:assets";
 import profileImage from "../assets/profile-image-light.webp";
+
+const metaData = {
+  title: "About Me | Aldrin's Blog",
+  description:
+    "Learn more about Aldrin, a Front End Developer and Informatics Engineering Student passionate about web development, UI/UX design, and Blockchain & Web3.",
+};
 ---
 
-<Layout title={aboutTitle}>
+<Layout title={metaData.title} description={metaData.description}>
   <main
-    class="w-full mx-auto mt-36 lg:mt-52 flex items-center justify-center relative max-w-4xl lg:flex-row flex-col-reverse gap-8 lg:gap-16"
+    class="w-full mx-auto my-36 lg:my-52 flex items-center justify-center relative max-w-4xl lg:flex-row flex-col-reverse gap-8 lg:gap-16"
   >
     <!-- <span class="text-8xl font-bold absolute top-8 left-0">"</span> -->
     <div class="space-y-3 sm:space-y-6 px-4 lg:px-0">

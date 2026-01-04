@@ -1,13 +1,17 @@
 ---
 import Layout from "../layouts/Layout.astro";
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 import { Image } from "astro:assets";
 import avatarBlog from "../assets/writing-pose.webp";
 import ArticleSection from "../components/section/ArticleSection.astro";
+
+const metaData = {
+  title: "Home | Aldrin's Blog",
+  description:
+    "Welcome to Aldrin's Personal Blog, where I share my thoughts on tech and life.",
+};
 ---
 
-<Layout title="Home | Aldrin's Blog">
+<Layout title={metaData.title} description={metaData.description}>
   <main
     class="w-full mx-auto mt-36 flex flex-col items-center justify-center relative max-w-4xl"
   >
