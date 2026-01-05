@@ -4,9 +4,10 @@ import main_logo from "../assets/main_logo_black.webp";
 ---
 
 <nav
-  class="fixed top-8 px-7 lg:px-14 py-4 left-1/2 transform -translate-x-1/2 w-[95%] rounded-full border border-gray-300 shadow-sm shadow-gray-200 lg:w-full max-w-5xl mx-auto bg-white/80 backdrop-blur-md flex justify-between items-center z-10"
+  aria-label="Main Navigation"
+  class="fixed top-5 px-7 lg:px-14 py-4 left-1/2 transform -translate-x-1/2 w-[95%] rounded-full border border-gray-300 shadow-sm shadow-gray-200 lg:w-full max-w-5xl mx-auto bg-white/80 backdrop-blur-md flex justify-between items-center z-10"
 >
-  <a href="/" class="logo flex items-center">
+  <a href="/" aria-label="Homepage" class="logo flex items-center">
     <Image src={main_logo} alt="Main Logo" class="h-10 w-10" />
     <span class="ml-3 text-xl font-bold">Aldrin.</span>
   </a>
@@ -19,3 +20,5 @@ import main_logo from "../assets/main_logo_black.webp";
     </li>
   </ul>
 </nav>
+
+<script src="../js/nav.js"></script>

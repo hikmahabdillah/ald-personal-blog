@@ -3,6 +3,8 @@ import Navbar from "../components/Navbar.astro";
 import "../styles/global.css";
 import Footer from "../components/Footer.astro";
 import HeaderLayout from "./HeaderLayout.astro";
+import SocialSidebar from "../components/SocialSidebar.astro";
+import EmailSidebar from "../components/EmailSidebar.astro";
 
 // type definition for props
 interface Props {
@@ -27,55 +29,12 @@ const {
       class="min-h-screen w-full max-w-5xl mx-auto p-4 pb-0 relative text-dark"
     >
       <Navbar />
-      <!-- sidebar social media -->
-      <aside
-        class="hidden fixed bottom-0 md:flex md:flex-col md:items-center md:gap-4 md:z-10"
-      >
-        <a
-          target="_blank"
-          href="https://github.com/hikmahabdillah"
-          class="transition duration-300 hover:scale-90"
-          ><i class="fa-brands fa-github fa-xl"></i></a
-        >
-        <a
-          target="_blank"
-          href="https://www.linkedin.com/in/hikmah-aldrin-abdillah/"
-          class="transition duration-300 hover:scale-90"
-          ><i class="fa-brands fa-linkedin-in fa-xl"></i></a
-        >
-        <a
-          target="_blank"
-          href="https://medium.com/@neoparticle"
-          class="transition duration-300 hover:scale-90"
-          ><i class="fa-brands fa-medium fa-lg"></i></a
-        >
-        <div class="h-44 w-0.5 bg-dark"></div>
-      </aside>
-      <!-- sidebar email -->
-      <aside
-        class="hidden z-10 fixed top-32 right-0 lg:right-auto xl:right-1/12 2xl:right-[15%] md:flex md:flex-col md:items-center md:mr-6 lg:mr-10 md:gap-4"
-      >
-        <div class="h-44 w-0.5 bg-dark"></div>
-        <a
-          href="mailto:hikmahaldrin44@gmail.com"
-          class="[writing-mode:vertical-rl] font-medium tracking-widest text-sm hover:text-secondary transition duration-300"
-          >hikmahaldrin44@gmail.com</a
-        >
-      </aside>
+      <SocialSidebar />
+      <EmailSidebar />
       <slot />
       <Footer />
     </div>
   </body><script
     src="https://kit.fontawesome.com/6a1f5752a8.js"
     crossorigin="anonymous"></script>
-  <!-- <div class="min-h-screen"></div> -->
 </html>
-
-<style>
-  html,
-  body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-  }
-</style>

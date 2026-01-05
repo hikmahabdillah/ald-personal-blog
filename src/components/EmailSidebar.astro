@@ -1,0 +1,22 @@
+---
+// Email contact sidebar component
+interface Props {
+  email?: string;
+}
+
+const { email = "hikmahaldrin44@gmail.com" } = Astro.props;
+---
+
+<aside
+  class="hidden z-10 fixed top-32 right-0 lg:right-auto xl:right-1/12 2xl:right-[15%] md:flex md:flex-col md:items-center md:mr-6 lg:mr-10 md:gap-4"
+  aria-label="Contact email"
+>
+  <div class="h-44 w-0.5 bg-dark" aria-hidden="true"></div>
+  <a
+    aria-label={`Send email to ${email}`}
+    href={`mailto:${email}`}
+    class="[writing-mode:vertical-rl] font-medium tracking-widest text-sm hover:text-secondary transition duration-300 focus:outline-none focus:ring-2 focus:ring-primary rounded"
+  >
+    {email}
+  </a>
+</aside>

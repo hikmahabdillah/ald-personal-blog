@@ -1,0 +1,44 @@
+---
+// Social media sidebar component
+interface SocialLink {
+  href: string;
+  icon: string;
+  label: string;
+}
+
+const socialLinks: SocialLink[] = [
+  {
+    href: "https://github.com/hikmahabdillah",
+    icon: "fa-brands fa-github fa-xl",
+    label: "GitHub profile",
+  },
+  {
+    href: "https://www.linkedin.com/in/hikmah-aldrin-abdillah/",
+    icon: "fa-brands fa-linkedin-in fa-xl",
+    label: "LinkedIn profile",
+  },
+  {
+    href: "https://medium.com/@neoparticle",
+    icon: "fa-brands fa-medium fa-lg",
+    label: "Medium profile",
+  },
+];
+---
+
+<aside
+  class="hidden fixed bottom-0 md:flex md:flex-col md:items-center md:gap-4 md:z-10"
+>
+  {
+    socialLinks.map((link) => (
+      <a
+        aria-label={link.label}
+        target="_blank"
+        href={link.href}
+        class="transition duration-300 hover:scale-90"
+      >
+        <i class={link.icon} />
+      </a>
+    ))
+  }
+  <div class="h-44 w-0.5 bg-dark"></div>
+</aside>
