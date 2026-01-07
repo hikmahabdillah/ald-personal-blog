@@ -1,9 +1,21 @@
 ---
+import { postImages } from "../lib/image";
+import { formatDate } from "../lib/formatDate";
 
+const { article } = Astro.props;
+
+const data = {
+  title: article.data.title,
+  description: article.data.description,
+  image: postImages[article.data.image],
+  date: formatDate(new Date(article.data.pubDate)),
+  tags: article.data.tags,
+};
 ---
 
 <div
-  class="w-full h-[450px] rounded-2xl bg-[url(https://i.pinimg.com/1200x/6d/bd/9e/6dbd9e18600237825c6fc1efe8630cc5.jpg)] bg-cover bg-center"
+  class="w-full h-[450px] rounded-2xl bg-cover bg-center"
+  style={`background-image: url(${data.image.cover})`}
 >
   <a
     href=""
@@ -12,23 +24,20 @@
     <ul
       class="flex flex-wrap gap-x-5 marker:content-['#'] absolute top-6 left-8 font-semibold w-[50%] md:w-full text-white"
     >
-      <li>Website</li>
-      <li>Website</li>
-      <li>Website</li>
+      {data.tags.map((tag: string) => <li class="capitalize">{tag}</li>)}
     </ul>
     <header class="md:w-[80%]">
       <h2
         class="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2 line-clamp-2"
       >
-        Featured Article Title Lorem ipsum dolor sit amet.
+        {data.title}
       </h2>
       <p class="text-sm md:text-base text-white truncate">
-        A brief description or excerpt of the featured article goes here to
-        entice readers to click and read more.
+        {data.description}
       </p>
     </header>
     <p class="text-white absolute md:bottom-8 right-8 font-medium top-6">
-      28 Dec 2025
+      {data.date}
     </p>
   </a>
 </div>
