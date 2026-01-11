@@ -12,8 +12,6 @@ const data = {
   date: formatDate(new Date(article.data.pubDate)),
   tags: article.data.tags,
 };
-
-console.log(data.tags.map((tag: string) => tag));
 ---
 
 <article class="w-full flex flex-col">
@@ -43,7 +41,7 @@ console.log(data.tags.map((tag: string) => tag));
     <footer class="flex justify-between items-center">
       <p class="text-sm text-dark font-medium">{data.date}</p>
       <a
-        href=""
+        href={article.slug}
         class="text-base text-dark font-medium transition duration-300 border border-transparent rounded-full px-4 py-2 hover:border-secondary group"
         >Read More <i
           class="fa-solid fa-arrow-right-long fa-xl ml-2 -rotate-45 group-hover:rotate-0 transition duration-300"

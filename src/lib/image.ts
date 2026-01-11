@@ -8,6 +8,9 @@ import image2 from "../assets/images-content/post-2.jpg";
 import image3 from "../assets/images-content/post-3.jpg";
 import image4 from "../assets/images-content/post-4.jpg";
 import image5 from "../assets/images-content/post-5.jpg";
+import image6 from "../assets/images-content/post-6.jpg";
+import image7 from "../assets/images-content/post-7.jpg";
+import image8 from "../assets/images-content/post-8.jpg";
 
 export const postImages: Record<string, ImageType> = {
   "post-1": {
@@ -29,5 +32,17 @@ export const postImages: Record<string, ImageType> = {
   "post-5": {
     cover: "/images/posts/post-5.jpg",
     content: image5,
+  },
+  "post-6": {
+    cover: "/images/posts/post-6.jpg",
+    content: image6,
+  },
+  "post-7": {
+    cover: "/images/posts/post-7.jpg",
+    content: image7,
+  },
+  "post-8": {
+    cover: "/images/posts/post-8.jpg",
+    content: image8,
   },
 };
