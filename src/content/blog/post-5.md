@@ -3,7 +3,7 @@ title: "Web Performance Optimization: Bikin Website Mu Secepat Kilat"
 description: "Panduan praktis optimasi performa web untuk user experience yang lebih baik dan SEO yang lebih mantap"
 pubDate: 2026-01-09
 tags: ["performance", "web-dev", "optimization"]
-image: "../../assets/images-content/post-5.jpg"
+image: "post-5"
 ---
 
 ## Kenapa Performance Itu Penting?
