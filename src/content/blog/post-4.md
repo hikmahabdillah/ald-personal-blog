@@ -4,6 +4,7 @@ description: "Koleksi tools dan extensions yang bikin workflow development lebih
 pubDate: 2026-01-08
 tags: ["tools", "productivity", "vscode"]
 image: "post-4"
+imageCredit: "post-4"
 ---
 
 ## Setup Tools itu Penting!

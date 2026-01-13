@@ -4,6 +4,7 @@ description: "Eksplorasi fitur-fitur JavaScript terbaru yang bikin coding lebih 
 pubDate: 2026-01-07
 tags: ["javascript", "es2024", "programming"]
 image: "post-3"
+imageCredit: "post-3"
 ---
 
 ## JavaScript Terus Berkembang

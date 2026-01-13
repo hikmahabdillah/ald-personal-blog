@@ -4,6 +4,7 @@ description: "Master CSS Grid dengan teknik-teknik modern untuk create complex l
 pubDate: 2026-01-11
 tags: ["css", "web-dev", "design"]
 image: "post-7"
+imageCredit: "post-7"
 ---
 
 ## CSS Grid Revolution

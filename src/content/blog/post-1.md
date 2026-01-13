@@ -4,6 +4,7 @@ description: "My Journey yang penuh gegenpress"
 pubDate: 2026-01-01
 tags: ["tech", "life"]
 image: "post-1"
+imageCredit: "post-1"
 ---
 
 ## Hello World, 2026!

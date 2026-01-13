@@ -4,6 +4,7 @@ description: "Panduan lengkap design RESTful API yang clean, scalable, dan devel
 pubDate: 2026-01-12
 tags: ["api", "backend", "web-dev"]
 image: "post-8"
+imageCredit: "post-8"
 ---
 
 ## Why API Design Matters

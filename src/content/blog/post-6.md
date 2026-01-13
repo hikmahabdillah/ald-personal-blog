@@ -4,6 +4,7 @@ description: "Advanced TypeScript techniques yang bikin code kamu lebih safe dan
 pubDate: 2026-01-10
 tags: ["typescript", "web-dev", "programming"]
 image: "post-6"
+imageCredit: "post-6"
 ---
 
 ## Kenapa TypeScript?

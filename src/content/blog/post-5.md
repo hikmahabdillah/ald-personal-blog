@@ -4,6 +4,7 @@ description: "Panduan praktis optimasi performa web untuk user experience yang l
 pubDate: 2026-01-09
 tags: ["performance", "web-dev", "optimization"]
 image: "post-5"
+imageCredit: "post-5"
 ---
 
 ## Kenapa Performance Itu Penting?
