@@ -4,7 +4,6 @@ import "../styles/global.css";
 import Footer from "../components/Footer.astro";
 import HeaderLayout from "./HeaderLayout.astro";
 import SocialSidebar from "../components/SocialSidebar.astro";
-import EmailSidebar from "../components/EmailSidebar.astro";
 
 // type definition for props
 interface Props {
@@ -32,7 +31,6 @@ const {
     >
       <Navbar />
       <SocialSidebar />
-      <EmailSidebar />
       <slot />
       <Footer />
     </div>

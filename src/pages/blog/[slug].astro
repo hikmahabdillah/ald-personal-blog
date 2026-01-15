@@ -22,7 +22,7 @@ const { Content } = await post.render();
 const pubDate = formatDate(new Date(post.data.pubDate));
 const imageUrl = postImages[post.data.image]?.content?.src || "";
 
-console.log(imageUrl)
+console.log(imageUrl);
 
 const metaData = {
   title: post?.data.title || "coba",
@@ -32,29 +32,42 @@ const metaData = {
 
 <Layout title={metaData.title} description={metaData.description}>
   <article
-    class="min-h-screen w-full mx-auto my-36 flex flex-col relative md:px-10 "
+    class="min-h-screen w-full mx-auto lg:ml-6 my-36 flex flex-col relative md:px-10"
   >
-    <section class="space-y-3 px-4 lg:px-0">
+    <section class="space-y-5 px-4 lg:px-0">
       <div class="flex justify-between items-center">
         <ul
           class="ml-2 flex flex-wrap gap-x-5 marker:content-['#'] text-sm lg:text-base text-primary font-medium"
         >
-          {post.data.tags.map((tag: string) => <li class="capitalize">{tag}</li>)}
+          {
+            post.data.tags.map((tag: string) => (
+              <li class="capitalize">{tag}</li>
+            ))
+          }
         </ul>
         <p class="text-sm lg:text-base text-secondary font-medium">{pubDate}</p>
       </div>
-      <h1 class="text-4xl sm:text-6xl font-bold">{post.data.title}</h1>
-      <p class="text-secondary font-medium mt-4">
-        {post.data.description}
-      </p>
+
+      <div>
+        <h1 class="text-4xl sm:text-6xl font-bold">{post.data.title}</h1>
+        <p class="text-secondary font-medium mt-5">
+          {post.data.description}
+        </p>
+      </div>
 
       <div class="space-y-2 my-10">
-        <img src={imageUrl} alt="" class="object-contain h-auto w-full rounded-lg md:rounded-xl">
-        {post.data.imageCredit && (
-          <p class="text-sm md:text-sm text-secondary/70 italic font-medium">
-            Source: {post.data.imageCredit}
-          </p>
-        )}
+        <img
+          src={imageUrl}
+          alt="article-image"
+          class="object-contain h-auto w-full rounded-lg md:rounded-xl"
+        />
+        {
+          post.data.imageCredit && (
+            <p class="text-sm md:text-sm text-secondary/70 italic font-medium">
+              Source: {post.data.imageCredit}
+            </p>
+          )
+        }
       </div>
     </section>
     <!-- Blog content  -->

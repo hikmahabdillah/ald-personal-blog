@@ -23,11 +23,25 @@ const socialLinks: SocialLink[] = [
     label: "Medium profile",
   },
 ];
+
+// Email contact sidebar component
+interface Props {
+  email?: string;
+}
+
+const { email = "hikmahaldrin44@gmail.com" } = Astro.props;
 ---
 
 <aside
   class="hidden fixed bottom-0 md:flex md:flex-col md:items-center md:gap-4 md:z-10"
 >
+  <a
+    aria-label={`Send email to ${email}`}
+    href={`mailto:${email}`}
+    class="[writing-mode:vertical-rl] rotate-180 font-medium tracking-widest text-sm hover:text-secondary transition duration-300 focus:outline-none focus:ring-2 focus:ring-primary rounded"
+  >
+    {email}
+  </a>
   {
     socialLinks.map((link) => (
       <a
