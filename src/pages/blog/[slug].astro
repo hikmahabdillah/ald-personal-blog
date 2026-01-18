@@ -34,10 +34,10 @@ const metaData = {
   <article
     class="min-h-screen w-full mx-auto lg:ml-6 my-36 flex flex-col relative md:px-10"
   >
-    <section class="space-y-5 px-4 lg:px-0">
-      <div class="flex justify-between items-center">
+    <section class="space-y-5 px-1">
+      <div class="flex justify-between items-center gap-4">
         <ul
-          class="ml-2 flex flex-wrap gap-x-5 marker:content-['#'] text-sm lg:text-base text-primary font-medium"
+          class="ml-2 flex flex-wrap gap-x-5 w-full marker:content-['#'] text-sm lg:text-base text-primary font-medium"
         >
           {
             post.data.tags.map((tag: string) => (
@@ -45,11 +45,15 @@ const metaData = {
             ))
           }
         </ul>
-        <p class="text-sm lg:text-base text-secondary font-medium">{pubDate}</p>
+        <p class="text-nowrap text-sm lg:text-base text-secondary font-medium">
+          {pubDate}
+        </p>
       </div>
 
       <div>
-        <h1 class="text-4xl sm:text-6xl font-bold">{post.data.title}</h1>
+        <h1 class="text-3xl sm:text-5xl md:text-6xl font-bold">
+          {post.data.title}
+        </h1>
         <p class="text-secondary font-medium mt-5">
           {post.data.description}
         </p>
@@ -71,7 +75,7 @@ const metaData = {
       </div>
     </section>
     <!-- Blog content  -->
-    <section class="max-w-none px-4 lg:px-0">
+    <section class="max-w-none prose prose-slate lg:prose-lg px-1">
       <Content />
     </section>
   </article>
