@@ -3,8 +3,8 @@ title: "Modern CSS Grid: Layout Magic in 2026"
 description: "Master CSS Grid dengan teknik-teknik modern untuk create complex layouts dengan mudah"
 pubDate: 2026-01-11
 tags: ["css", "web-dev", "design"]
-image: "post-7"
-imageCredit: "post-7"
+image: "modern-css-grid-layout"
+imageCredit: "modern-css-grid-layout"
 ---
 
 ## CSS Grid Revolution
@@ -225,7 +225,9 @@ Yes, you can animate grid!
 
 /* Animate grid item placement */
 .grid-item {
-  transition: grid-column 0.3s ease, grid-row 0.3s ease;
+  transition:
+    grid-column 0.3s ease,
+    grid-row 0.3s ease;
 }
 
 .grid-item:hover {

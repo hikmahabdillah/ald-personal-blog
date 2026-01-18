@@ -3,8 +3,8 @@ title: "Belajar Astro: Framework yang Bikin Loading Cepat"
 description: "Pengalaman membangun blog dengan Astro dan mengapa framework ini cocok untuk content-focused websites"
 pubDate: 2026-01-06
 tags: ["astro", "web-dev", "javascript"]
-image: "post-2"
-imageCredit: "post-2"
+image: "belajar-astro"
+imageCredit: "belajar-astro"
 ---
 
 ## Kenapa Astro?

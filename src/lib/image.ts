@@ -3,46 +3,46 @@ type ImageType = {
   content?: ImageMetadata;
 };
 
-import image1 from "../assets/images-content/post-1.jpg";
-import image2 from "../assets/images-content/post-2.jpg";
-import image3 from "../assets/images-content/post-3.jpg";
-import image4 from "../assets/images-content/post-4.jpg";
-import image5 from "../assets/images-content/post-5.jpg";
-import image6 from "../assets/images-content/post-6.jpg";
-import image7 from "../assets/images-content/post-7.jpg";
-import image8 from "../assets/images-content/post-8.jpg";
+import image1 from "../assets/images-content/my-journey.jpg";
+import image2 from "../assets/images-content/belajar-astro.jpg";
+import image3 from "../assets/images-content/javascript-modern-features.jpg";
+import image4 from "../assets/images-content/developer-tools-favorite.jpg";
+import image5 from "../assets/images-content/web-performance-optimization.jpg";
+import image6 from "../assets/images-content/typescript-pro-tips.jpg";
+import image7 from "../assets/images-content/modern-css-grid-layout.jpg";
+import image8 from "../assets/images-content/api-design-best-practices.jpg";
 
 export const postImages: Record<string, ImageType> = {
-  "post-1": {
-    cover: "/images/posts/post-1.jpg",
+  "my-journey": {
+    cover: "/images/posts/my-journey.jpg",
     content: image1,
   },
-  "post-2": {
-    cover: "/images/posts/post-2.jpg",
+  "belajar-astro": {
+    cover: "/images/posts/belajar-astro.jpg",
     content: image2,
   },
-  "post-3": {
-    cover: "/images/posts/post-3.jpg",
+  "javascript-modern-features": {
+    cover: "/images/posts/javascript-modern-features.jpg",
     content: image3,
   },
-  "post-4": {
-    cover: "/images/posts/post-4.jpg",
+  "developer-tools-favorite": {
+    cover: "/images/posts/developer-tools-favorite.jpg",
     content: image4,
   },
-  "post-5": {
-    cover: "/images/posts/post-5.jpg",
+  "web-performance-optimization": {
+    cover: "/images/posts/web-performance-optimization.jpg",
     content: image5,
   },
-  "post-6": {
-    cover: "/images/posts/post-6.jpg",
+  "typescript-pro-tips": {
+    cover: "/images/posts/typescript-pro-tips.jpg",
     content: image6,
   },
-  "post-7": {
-    cover: "/images/posts/post-7.jpg",
+  "modern-css-grid-layout": {
+    cover: "/images/posts/modern-css-grid-layout.jpg",
     content: image7,
   },
-  "post-8": {
-    cover: "/images/posts/post-8.jpg",
+  "api-design-best-practices": {
+    cover: "/images/posts/api-design-best-practices.jpg",
     content: image8,
   },
 };

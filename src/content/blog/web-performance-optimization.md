@@ -3,8 +3,8 @@ title: "Web Performance Optimization: Bikin Website Mu Secepat Kilat"
 description: "Panduan praktis optimasi performa web untuk user experience yang lebih baik dan SEO yang lebih mantap"
 pubDate: 2026-01-09
 tags: ["performance", "web-dev", "optimization"]
-image: "post-5"
-imageCredit: "post-5"
+image: "web-performance-optimization"
+imageCredit: "web-performance-optimization"
 ---
 
 ## Kenapa Performance Itu Penting?
@@ -166,7 +166,11 @@ const debounce = (fn, delay) => {
 
 /* Use system fonts as fallback */
 body {
-  font-family: "CustomFont", system-ui, -apple-system, sans-serif;
+  font-family:
+    "CustomFont",
+    system-ui,
+    -apple-system,
+    sans-serif;
 }
 ```
 
@@ -182,7 +186,7 @@ const CACHE_URLS = ["/", "/styles.css", "/script.js", "/offline.html"];
 // Install - cache assets
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(CACHE_URLS))
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(CACHE_URLS)),
   );
 });
 
@@ -192,7 +196,7 @@ self.addEventListener("fetch", (event) => {
     caches
       .match(event.request)
       .then((response) => response || fetch(event.request))
-      .catch(() => caches.match("/offline.html"))
+      .catch(() => caches.match("/offline.html")),
   );
 });
 ```

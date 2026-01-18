@@ -22,8 +22,6 @@ const { Content } = await post.render();
 const pubDate = formatDate(new Date(post.data.pubDate));
 const imageUrl = postImages[post.data.image]?.content?.src || "";
 
-console.log(imageUrl);
-
 const metaData = {
   title: post?.data.title || "coba",
   description: post?.data.description || "coba deskripsi",

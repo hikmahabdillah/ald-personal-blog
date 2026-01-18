@@ -3,8 +3,8 @@ title: "JavaScript Modern Features yang Wajib Kamu Kuasai di 2026"
 description: "Eksplorasi fitur-fitur JavaScript terbaru yang bikin coding lebih clean dan efisien"
 pubDate: 2026-01-07
 tags: ["javascript", "es2024", "programming"]
-image: "post-3"
-imageCredit: "post-3"
+image: "javascript-modern-features"
+imageCredit: "javascript-modern-features"
 ---
 
 ## JavaScript Terus Berkembang

@@ -3,8 +3,8 @@ title: "TypeScript Pro Tips: Level Up Your Type Game"
 description: "Advanced TypeScript techniques yang bikin code kamu lebih safe dan maintainable"
 pubDate: 2026-01-10
 tags: ["typescript", "web-dev", "programming"]
-image: "post-6"
-imageCredit: "post-6"
+image: "typescript-pro-tips"
+imageCredit: "typescript-pro-tips"
 ---
 
 ## Kenapa TypeScript?
@@ -75,7 +75,7 @@ function getProperty<T>(obj: T, key: keyof T) {
 // With constraints
 function sortBy<T extends { id: number; name: string }>(
   items: T[],
-  key: keyof T
+  key: keyof T,
 ): T[] {
   return items.sort((a, b) => (a[key] > b[key] ? 1 : -1));
 }

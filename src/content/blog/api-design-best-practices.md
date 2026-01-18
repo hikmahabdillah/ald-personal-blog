@@ -3,8 +3,8 @@ title: "API Design Best Practices: Build APIs That Developers Love"
 description: "Panduan lengkap design RESTful API yang clean, scalable, dan developer-friendly"
 pubDate: 2026-01-12
 tags: ["api", "backend", "web-dev"]
-image: "post-8"
-imageCredit: "post-8"
+image: "api-design-best-practices"
+imageCredit: "api-design-best-practices"
 ---
 
 ## Why API Design Matters

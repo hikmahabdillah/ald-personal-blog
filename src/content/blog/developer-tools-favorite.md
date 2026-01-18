@@ -3,8 +3,8 @@ title: "Developer Tools Favoritku yang Boost Produktivitas"
 description: "Koleksi tools dan extensions yang bikin workflow development lebih efisien dan enjoyable"
 pubDate: 2026-01-08
 tags: ["tools", "productivity", "vscode"]
-image: "post-4"
-imageCredit: "post-4"
+image: "developer-tools-favorite"
+imageCredit: "developer-tools-favorite"
 ---
 
 ## Setup Tools itu Penting!
