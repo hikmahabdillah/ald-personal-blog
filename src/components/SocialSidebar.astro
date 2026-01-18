@@ -33,7 +33,8 @@ const { email = "hikmahaldrin44@gmail.com" } = Astro.props;
 ---
 
 <aside
-  class="hidden fixed bottom-0 md:flex md:flex-col md:items-center md:gap-4 md:z-10"
+  id="social-sidebar"
+  class="hidden fixed bottom-0 md:flex md:flex-col md:items-center md:gap-4 md:z-10 transition-all duration-1000"
 >
   <a
     aria-label={`Send email to ${email}`}
@@ -56,3 +57,59 @@ const { email = "hikmahaldrin44@gmail.com" } = Astro.props;
   }
   <div class="h-44 w-0.5 bg-dark"></div>
 </aside>
+
+<script>
+  const sidebar = document.getElementById("social-sidebar");
+
+  if (sidebar) {
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+    const SCROLL_THRESHOLD = 100;
+    const SCROLL_DELTA = 5; // Minimum scroll distance to trigger hide/show
+
+    const updateSidebar = (scrollingDown: boolean, currentScrollY: number) => {
+      if (currentScrollY < SCROLL_THRESHOLD) {
+        // Always show when near top
+        sidebar.classList.remove("md:opacity-0", "md:translate-y-full");
+        sidebar.classList.add("md:opacity-100", "md:translate-y-0");
+      } else if (scrollingDown) {
+        // Hide when scrolling down
+        sidebar.classList.remove("md:opacity-100", "md:translate-y-0");
+        sidebar.classList.add("md:opacity-0", "md:translate-y-full");
+      } else {
+        // Show when scrolling up
+        sidebar.classList.remove("md:opacity-0", "md:translate-y-full");
+        sidebar.classList.add("md:opacity-100", "md:translate-y-0");
+      }
+    };
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      // Check if scroll delta is significant enough
+      if (Math.abs(currentScrollY - lastScrollY) < SCROLL_DELTA) {
+        ticking = false;
+        return;
+      }
+
+      const scrollingDown = currentScrollY > lastScrollY;
+      updateSidebar(scrollingDown, currentScrollY);
+      lastScrollY = currentScrollY;
+      ticking = false;
+    };
+
+    const requestTick = () => {
+      if (!ticking) {
+        requestAnimationFrame(handleScroll);
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", requestTick, { passive: true });
+
+    // Cleanup on page unload (for SPA navigation)
+    document.addEventListener("astro:before-swap", () => {
+      window.removeEventListener("scroll", requestTick);
+    });
+  }
+</script>
