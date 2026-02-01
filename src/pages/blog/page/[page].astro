@@ -11,31 +11,37 @@ const metaData = {
 };
 
 export async function getStaticPaths() {
-  const articles = await getCollection("blog");
   const postsPerPage = 6;
-  const totalPages = Math.ceil(articles.length / postsPerPage);
+  const articles = await getCollection("blog");
 
-  const paths = [];
-  for (let i = 1; i <= totalPages; i++) {
-    paths.push({ params: { page: i.toString() } });
-  }
+  const sortedArticles = articles.sort((a, b) => {
+    return (
+      new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
+    );
+  });
 
-  return paths;
+  const totalPages = Math.ceil(sortedArticles.length / postsPerPage);
+
+  return Array.from({ length: totalPages }, (_, i) => {
+    const pageNum = i + 1;
+    const start = (pageNum - 1) * postsPerPage;
+    const end = start + postsPerPage;
+    const pagePosts = sortedArticles.slice(start, end);
+
+    return {
+      params: {
+        page: pageNum.toString(),
+      },
+      props: {
+        pagePosts,
+        currentPage: pageNum,
+        totalPages,
+      },
+    };
+  });
 }
 
-const articles = await getCollection("blog");
-const postsPerPage = 6;
-const currentPage = Astro.params.page ? parseInt(Astro.params.page) : 1;
-const sortedArticles = articles.sort((a, b) => {
-  return (
-    new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
-  );
-});
-
-const start = (currentPage - 1) * postsPerPage;
-const end = start + postsPerPage;
-const pagePosts = sortedArticles.slice(start, end);
-const totalPages = Math.ceil(sortedArticles.length / postsPerPage);
+const { pagePosts, currentPage, totalPages } = Astro.props;
 ---
 
 <Layout title={metaData.title} description={metaData.description}>
