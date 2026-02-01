@@ -1,0 +1,59 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../../layouts/Layout.astro";
+import ArticleCard from "../../../components/ArticleCard.astro";
+import Pagination from "../../../components/Pagination.astro";
+
+const metaData = {
+  title: "Blog | Aldrin's Blog",
+  description:
+    "Read the latest articles and updates on technology and life on Aldrin's Personal Blog.",
+};
+
+export async function getStaticPaths() {
+  const articles = await getCollection("blog");
+  const postsPerPage = 6;
+  const totalPages = Math.ceil(articles.length / postsPerPage);
+
+  const paths = [];
+  for (let i = 1; i <= totalPages; i++) {
+    paths.push({ params: { page: i.toString() } });
+  }
+
+  return paths;
+}
+
+const articles = await getCollection("blog");
+const postsPerPage = 6;
+const currentPage = Astro.params.page ? parseInt(Astro.params.page) : 1;
+const sortedArticles = articles.sort((a, b) => {
+  return (
+    new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
+  );
+});
+
+const start = (currentPage - 1) * postsPerPage;
+const end = start + postsPerPage;
+const pagePosts = sortedArticles.slice(start, end);
+const totalPages = Math.ceil(sortedArticles.length / postsPerPage);
+---
+
+<Layout title={metaData.title} description={metaData.description}>
+  <main
+    class="min-h-screen w-full mx-auto lg:ml-6 my-36 flex flex-col relative md:px-10 gap-5"
+  >
+    <section class="space-y-3 px-4 lg:px-0">
+      <h1 class="text-4xl sm:text-6xl font-bold">Thoughts</h1>
+      <p class="text-secondary font-medium mt-4">
+        Thoughts on tech, learning, and life.
+      </p>
+    </section>
+    <!-- Blog content  -->
+    <div class="mt-4 lg:mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-8">
+      {pagePosts.map((article) => <ArticleCard article={article} />)}
+    </div>
+
+    <!-- Pagination  -->
+    <Pagination currentPage={currentPage} totalPages={totalPages} />
+  </main>
+</Layout>

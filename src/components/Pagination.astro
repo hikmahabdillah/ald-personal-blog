@@ -9,14 +9,18 @@ const { currentPage = 1, totalPages = 2 } = Astro.props;
   aria-label="Pagination"
 >
   <a
-    href=""
-    class="text-xs md:text-sm flex items-center gap-1 pl-2 pr-4 py-2 rounded-md"
-    ><ChevronLeft /> Prev</a
+    href={currentPage > 1 ? `/blog/page/${currentPage - 1}` : "/blog"}
+    class={`text-xs md:text-sm flex items-center gap-1 pl-2 pr-4 py-2 rounded-md hover:underline ${
+      currentPage === 1 && "pointer-events-none opacity-50"
+    }`}><ChevronLeft /> Prev</a
   >
   <p class="text-xs md:text-sm">{currentPage} of {totalPages}</p>
   <a
-    href=""
-    class="text-xs md:text-sm flex items-center gap-1 pr-2 pl-4 py-2 rounded-md"
-    >Next <ChevronRight /></a
+    href={currentPage < totalPages
+      ? `/blog/page/${currentPage + 1}`
+      : `/blog/page/${totalPages}`}
+    class={`text-xs md:text-sm flex items-center gap-1 pr-2 pl-4 py-2 rounded-md hover:underline ${
+      currentPage === totalPages && "pointer-events-none opacity-50"
+    }`}>Next <ChevronRight /></a
   >
 </nav>
