@@ -5,10 +5,23 @@ import { Image } from "astro:assets";
 
 const { article } = Astro.props;
 
+// Check if this is a Contentful article (has source property) or local article
+const isContentfulArticle = article.source === "contentful";
+
+// For Contentful articles, use URL directly; for local articles, use postImages lookup
+const imageUrl = isContentfulArticle
+  ? article.data.image.startsWith("//")
+    ? `https:${article.data.image}`
+    : article.data.image
+  : null;
+
+const localImage = !isContentfulArticle ? postImages[article.data.image] : null;
+
 const data = {
   title: article.data.title,
   description: article.data.description,
-  image: postImages[article.data.image],
+  image: localImage,
+  imageUrl: imageUrl,
   date: formatDate(new Date(article.data.pubDate)),
   tags: article.data.tags,
 };
@@ -16,11 +29,20 @@ const data = {
 
 <article class="w-full flex flex-col">
   {
-    data.image.content && (
+    data.image?.content && (
       <Image
         class="h-72 w-full object-cover rounded-lg"
         src={data.image.content}
-        alt="Sample Article Image"
+        alt={data.title}
+      />
+    )
+  }
+  {
+    data.imageUrl && (
+      <img
+        class="h-72 w-full object-cover rounded-lg"
+        src={data.imageUrl}
+        alt={data.title}
       />
     )
   }

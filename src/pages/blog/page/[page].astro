@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import Layout from "../../../layouts/Layout.astro";
 import ArticleCard from "../../../components/ArticleCard.astro";
 import Pagination from "../../../components/Pagination.astro";
+import { contentfulClient } from "../../../lib/contentful";
 
 const metaData = {
   title: "Blog | Aldrin's Blog",
@@ -10,38 +11,55 @@ const metaData = {
     "Read the latest articles and updates on technology and life on Aldrin's Personal Blog.",
 };
 
-export async function getStaticPaths() {
-  const postsPerPage = 6;
-  const articles = await getCollection("blog");
+// In SSR mode, fetch data dynamically
+const postsPerPage = 6;
+const { page } = Astro.params;
+const currentPage = parseInt(page || "1");
 
-  const sortedArticles = articles.sort((a, b) => {
-    return (
-      new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
-    );
-  });
+// Get local markdown articles
+const localArticles = await getCollection("blog");
 
-  const totalPages = Math.ceil(sortedArticles.length / postsPerPage);
+// Get Contentful articles
+const contentfulResponse = await contentfulClient.getEntries({
+  content_type: "blog",
+  include: 10, // Include linked assets and entries
+});
 
-  return Array.from({ length: totalPages }, (_, i) => {
-    const pageNum = i + 1;
-    const start = (pageNum - 1) * postsPerPage;
-    const end = start + postsPerPage;
-    const pagePosts = sortedArticles.slice(start, end);
+// Transform Contentful entries to match local article structure
+const contentfulArticles = contentfulResponse.items.map((item: any) => ({
+  slug: item.fields.slug,
+  data: {
+    title: item.fields.blog_title,
+    description: item.fields.description,
+    pubDate: item.fields.publishDate,
+    tags: item.metadata.tags?.map((tag: any) => tag.sys.id) || [],
+    image: item.fields.coverImage?.fields?.file?.url || "",
+  },
+  // Add a source identifier
+  source: "contentful",
+  contentfulData: item, // Store original data for future use
+}));
 
-    return {
-      params: {
-        page: pageNum.toString(),
-      },
-      props: {
-        pagePosts,
-        currentPage: pageNum,
-        totalPages,
-      },
-    };
-  });
+// Combine both arrays
+const allArticles = [...localArticles, ...contentfulArticles];
+
+// Sort by publish date
+const sortedArticles = allArticles.sort((a, b) => {
+  return (
+    new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
+  );
+});
+
+const totalPages = Math.ceil(sortedArticles.length / postsPerPage);
+
+// Return 404 if page doesn't exist
+if (currentPage < 1 || currentPage > totalPages) {
+  return Astro.redirect("/404");
 }
 
-const { pagePosts, currentPage, totalPages } = Astro.props;
+const start = (currentPage - 1) * postsPerPage;
+const end = start + postsPerPage;
+const pagePosts = sortedArticles.slice(start, end);
 ---
 
 <Layout title={metaData.title} description={metaData.description}>

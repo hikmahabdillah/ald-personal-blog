@@ -3,28 +3,99 @@ import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import { formatDate } from "../../lib/formatDate";
 import { postImages } from "../../lib/image";
+import { contentfulClient } from "../../lib/contentful";
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import { BLOCKS, INLINES } from "@contentful/rich-text-types";
 
-export async function getStaticPaths() {
-  const posts = await getCollection("blog");
+// In SSR mode, fetch data dynamically based on params
+const { slug } = Astro.params;
 
-  return posts.map((post) => ({
-    params: {
-      slug: post.slug,
-    },
-    props: {
-      post,
-    },
-  }));
+// Get local markdown posts
+const localPosts = await getCollection("blog");
+
+// Get Contentful posts
+const contentfulResponse = await contentfulClient.getEntries({
+  content_type: "blog",
+  include: 10, // Include linked assets and entries up to 10 levels deep
+});
+
+// Transform Contentful entries
+const contentfulPosts = contentfulResponse.items.map((item: any) => ({
+  slug: item.fields.slug,
+  data: {
+    title: item.fields.blog_title,
+    description: item.fields.description,
+    pubDate: item.fields.publishDate,
+    tags: item.metadata.tags?.map((tag: any) => tag.sys.id) || [],
+    image: item.fields.coverImage?.fields?.file?.url || "",
+    imageCredit: item.fields.imageCredit || "",
+    content: item.fields.content || "",
+  },
+  source: "contentful",
+  contentfulData: item,
+}));
+
+// Find the post based on slug
+const localPost = localPosts.find((p) => p.slug === slug);
+const contentfulPost = contentfulPosts.find((p) => p.slug === slug);
+
+const post = localPost || contentfulPost;
+const source = localPost ? "local" : "contentful";
+
+// Return 404 if post not found
+if (!post) {
+  return Astro.redirect("/404");
 }
 
-const { post } = Astro.props;
-const { Content } = await post.render();
+const isContentful = source === "contentful";
+
+// Only render markdown content for local posts
+let Content: any = null;
+if (!isContentful && post && "render" in post) {
+  const rendered = await post.render();
+  Content = rendered.Content;
+}
+
 const pubDate = formatDate(new Date(post.data.pubDate));
-const imageUrl = postImages[post.data.image]?.content?.src || "";
+
+// Handle images for both sources
+const imageUrl = isContentful
+  ? post.data.image.startsWith("//")
+    ? `https:${post.data.image}`
+    : post.data.image
+  : postImages[post.data.image]?.content?.src || "";
+
+// Get content for Contentful posts - convert Rich Text to HTML
+let contentfulContent = "";
+if (isContentful && "data" in post && "content" in post.data) {
+  // Check if content is a Rich Text object
+  if (typeof post.data.content === "object" && post.data.content !== null) {
+    // Custom rendering options to handle embedded assets (images)
+    const renderOptions = {
+      renderNode: {
+        [BLOCKS.EMBEDDED_ASSET]: (node: any) => {
+          const { title, description, file } = node.data.target.fields;
+          const imageUrl = file.url.startsWith("//")
+            ? `https:${file.url}`
+            : file.url;
+          const alt = title || description || "Embedded image";
+          return `<img src="${imageUrl}" alt="${alt}" class="w-full h-auto rounded-lg my-6" />`;
+        },
+        [BLOCKS.EMBEDDED_ENTRY]: (node: any) => {
+          // Handle embedded entries if needed
+          return "";
+        },
+      },
+    };
+    contentfulContent = documentToHtmlString(post.data.content, renderOptions);
+  } else {
+    contentfulContent = post.data.content || "";
+  }
+}
 
 const metaData = {
-  title: post?.data.title || "coba",
-  description: post?.data.description || "coba deskripsi",
+  title: post?.data.title || "Blog Post",
+  description: post?.data.description || "Read this article",
 };
 ---
 
@@ -74,7 +145,13 @@ const metaData = {
     </section>
     <!-- Blog content  -->
     <section class="max-w-none prose prose-slate lg:prose-lg px-1">
-      <Content />
+      {
+        isContentful ? (
+          <div set:html={contentfulContent} />
+        ) : (
+          Content && <Content />
+        )
+      }
     </section>
   </article>
 </Layout>
