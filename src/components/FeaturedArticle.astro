@@ -1,5 +1,4 @@
 ---
-import { postImages } from "../lib/image";
 import { formatDate } from "../lib/formatDate";
 
 const { article } = Astro.props;
@@ -12,8 +11,6 @@ const data = {
   tags: article.metadata?.tags || [],
   slug: article.fields.slug,
 };
-
-console.log("Article Data:", data.tags[0].sys);
 ---
 
 <article
@@ -21,7 +18,7 @@ console.log("Article Data:", data.tags[0].sys);
   style={`background-image: url(${data.image})`}
 >
   <a
-    href={`blog/${article.slug}`}
+    href={`blog/${data.slug}`}
     class="w-full h-full bg-black/50 rounded-2xl p-8 flex flex-col justify-end relative"
   >
     <ul

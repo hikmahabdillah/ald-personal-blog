@@ -13,18 +13,11 @@ const metaData = {
 
 export async function getStaticPaths() {
   const postsPerPage = 6;
-  // const articles = await getCollection("blog");
   const articles = await contentfulClient
     .getEntries({
       content_type: "blog",
     })
     .then((response) => response.items);
-
-  // const sortedArticles = articles.sort((a, b) => {
-  //   return (
-  //     new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
-  //   );
-  // });
 
   const totalPages = Math.ceil(articles.length / postsPerPage);
 
