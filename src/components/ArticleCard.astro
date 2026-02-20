@@ -1,36 +1,39 @@
 ---
-import { postImages } from "../lib/image";
 import { formatDate } from "../lib/formatDate";
-import { Image } from "astro:assets";
 
 const { article } = Astro.props;
 
 const data = {
-  title: article.data.title,
-  description: article.data.description,
-  image: postImages[article.data.image],
-  date: formatDate(new Date(article.data.pubDate)),
-  tags: article.data.tags,
+  title: article.fields.blog_title || "Untitled",
+  description: article.fields.description,
+  image: article.fields.coverImage?.fields?.file?.url,
+  date: formatDate(new Date(article.fields.publishDate)),
+  tags: article.metadata?.tags || [],
+  slug: article.fields.slug,
 };
 ---
 
 <article class="w-full flex flex-col">
   {
-    data.image.content && (
-      <Image
+    data.image && (
+      <img
         class="h-72 w-full object-cover rounded-lg"
-        src={data.image.content}
-        alt="Sample Article Image"
+        src={data.image.startsWith("//") ? `https:${data.image}` : data.image}
+        alt={data.title}
       />
     )
   }
   <div class="content flex flex-col p-3 gap-10 justify-between flex-1">
     <header>
-      <ul
-        class="ml-2 flex flex-wrap gap-x-5 marker:content-['#'] text-sm lg:text-base text-primary font-medium"
-      >
-        {data.tags.map((tag: string) => <li class="capitalize">{tag}</li>)}
-      </ul>
+      {
+        data.tags && data.tags.length > 0 && (
+          <ul class="ml-2 flex flex-wrap gap-x-5 marker:content-['#'] text-sm lg:text-base text-primary font-medium">
+            {data.tags.map((tag: any) => (
+              <li class="capitalize">{tag.sys.id}</li>
+            ))}
+          </ul>
+        )
+      }
       <h1 class="mt-2 mb-1 font-bold text-xl text-dark">
         {data.title}
       </h1>
@@ -41,7 +44,7 @@ const data = {
     <footer class="flex justify-between items-center">
       <p class="text-sm text-dark font-medium">{data.date}</p>
       <a
-        href={`/blog/${article.slug}`}
+        href={`/blog/${data.slug}`}
         class="text-base text-dark font-medium transition duration-300 border border-transparent rounded-full px-4 py-2 hover:border-secondary group"
         >Read More <i
           class="fa-solid fa-arrow-right-long fa-xl ml-2 -rotate-45 group-hover:rotate-0 transition duration-300"

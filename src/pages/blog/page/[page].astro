@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import Layout from "../../../layouts/Layout.astro";
 import ArticleCard from "../../../components/ArticleCard.astro";
 import Pagination from "../../../components/Pagination.astro";
+import { contentfulClient } from "../../../lib/contentful";
 
 const metaData = {
   title: "Blog | Aldrin's Blog",
@@ -12,21 +13,19 @@ const metaData = {
 
 export async function getStaticPaths() {
   const postsPerPage = 6;
-  const articles = await getCollection("blog");
+  const articles = await contentfulClient
+    .getEntries({
+      content_type: "blog",
+    })
+    .then((response) => response.items);
 
-  const sortedArticles = articles.sort((a, b) => {
-    return (
-      new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
-    );
-  });
-
-  const totalPages = Math.ceil(sortedArticles.length / postsPerPage);
+  const totalPages = Math.ceil(articles.length / postsPerPage);
 
   return Array.from({ length: totalPages }, (_, i) => {
     const pageNum = i + 1;
     const start = (pageNum - 1) * postsPerPage;
     const end = start + postsPerPage;
-    const pagePosts = sortedArticles.slice(start, end);
+    const pagePosts = articles.slice(start, end);
 
     return {
       params: {

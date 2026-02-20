@@ -1,30 +1,30 @@
 ---
-import { postImages } from "../lib/image";
 import { formatDate } from "../lib/formatDate";
 
 const { article } = Astro.props;
 
 const data = {
-  title: article.data.title,
-  description: article.data.description,
-  image: postImages[article.data.image],
-  date: formatDate(new Date(article.data.pubDate)),
-  tags: article.data.tags,
+  title: article.fields.blog_title || "Untitled",
+  description: article.fields.description,
+  image: article.fields.coverImage?.fields?.file?.url,
+  date: formatDate(new Date(article.fields.publishDate)),
+  tags: article.metadata?.tags || [],
+  slug: article.fields.slug,
 };
 ---
 
 <article
   class="w-full h-[450px] rounded-2xl bg-cover bg-center"
-  style={`background-image: url(${data.image.cover})`}
+  style={`background-image: url(${data.image})`}
 >
   <a
-    href={`blog/${article.slug}`}
+    href={`blog/${data.slug}`}
     class="w-full h-full bg-black/50 rounded-2xl p-8 flex flex-col justify-end relative"
   >
     <ul
       class="flex flex-wrap gap-x-5 marker:content-['#'] absolute top-6 left-8 font-semibold w-[50%] md:w-full text-white"
     >
-      {data.tags.map((tag: string) => <li class="capitalize">{tag}</li>)}
+      {data.tags.map((tag: any) => <li class="capitalize">{tag?.sys?.id}</li>)}
     </ul>
     <header class="md:w-[80%]">
       <h2
