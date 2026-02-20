@@ -3,8 +3,14 @@ import FeaturedArticle from "../FeaturedArticle.astro";
 import ArticleCard from "../ArticleCard.astro";
 
 import { getCollection } from "astro:content";
+import { contentfulClient } from "../../lib/contentful";
 
-const articles = await getCollection("blog");
+// const articles = await getCollection("blog");
+const articles = await contentfulClient
+  .getEntries({
+    content_type: "blog",
+  })
+  .then((response) => response.items);
 ---
 
 <section class="w-full px-0 md:px-10 lg:px-0 mb-52">

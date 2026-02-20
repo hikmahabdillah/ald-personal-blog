@@ -1,15 +1,21 @@
 ---
-import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import { formatDate } from "../../lib/formatDate";
-import { postImages } from "../../lib/image";
+import { contentfulClient } from "../../lib/contentful";
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import { BLOCKS } from "@contentful/rich-text-types";
 
 export async function getStaticPaths() {
-  const posts = await getCollection("blog");
+  // const posts = await getCollection("blog");
+  const posts = await contentfulClient
+    .getEntries({
+      content_type: "blog",
+    })
+    .then((response) => response.items);
 
   return posts.map((post) => ({
     params: {
-      slug: post.slug,
+      slug: post.fields.slug,
     },
     props: {
       post,
@@ -18,13 +24,29 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const { Content } = await post.render();
-const pubDate = formatDate(new Date(post.data.pubDate));
-const imageUrl = postImages[post.data.image]?.content?.src || "";
+const pubDate = formatDate(new Date(post.fields.publishDate as string));
+const imageUrl = (post.fields.coverImage as any)?.fields?.file?.url || "";
+const imageSrc = imageUrl.startsWith("//") ? `https:${imageUrl}` : imageUrl;
+
+const renderOptions = {
+  renderNode: {
+    [BLOCKS.EMBEDDED_ASSET]: (node: any) => {
+      const { file, title, description } = node.data.target.fields;
+      const imageUrl = file.url.startsWith("//")
+        ? `https:${file.url}`
+        : file.url;
+      return `<img src="${imageUrl}" alt="${title || description || "Image"}" class="w-full h-auto rounded-lg my-4" />`;
+    },
+  },
+};
+
+const htmlContent = post.fields.content
+  ? documentToHtmlString(post.fields.content as any, renderOptions)
+  : "";
 
 const metaData = {
-  title: post?.data.title || "coba",
-  description: post?.data.description || "coba deskripsi",
+  title: (post?.fields?.blog_title as string) || "Blog Post",
+  description: (post?.fields?.description as string) || "",
 };
 ---
 
@@ -38,8 +60,8 @@ const metaData = {
           class="ml-2 flex flex-wrap gap-x-5 w-full marker:content-['#'] text-sm lg:text-base text-primary font-medium"
         >
           {
-            post.data.tags.map((tag: string) => (
-              <li class="capitalize">{tag}</li>
+            post.metadata?.tags?.map((tag: any) => (
+              <li class="capitalize">{tag.sys.id}</li>
             ))
           }
         </ul>
@@ -50,31 +72,32 @@ const metaData = {
 
       <div>
         <h1 class="text-3xl sm:text-5xl md:text-6xl font-bold">
-          {post.data.title}
+          {post.fields.blog_title}
         </h1>
         <p class="text-secondary font-medium mt-5">
-          {post.data.description}
+          {post.fields.description}
         </p>
       </div>
 
       <div class="space-y-2 my-10">
         <img
-          src={imageUrl}
-          alt="article-image"
+          src={imageSrc}
+          alt={post.fields.blog_title as string}
           class="object-contain h-auto w-full rounded-lg md:rounded-xl"
         />
         {
-          post.data.imageCredit && (
+          post.fields.imageCredit && (
             <p class="text-sm md:text-sm text-secondary/70 italic font-medium">
-              Source: {post.data.imageCredit}
+              Source: {post.fields.imageCredit}
             </p>
           )
         }
       </div>
     </section>
     <!-- Blog content  -->
-    <section class="max-w-none prose prose-slate lg:prose-lg px-1">
-      <Content />
-    </section>
+    <section
+      class="max-w-none prose prose-slate lg:prose-lg px-1"
+      set:html={htmlContent}
+    />
   </article>
 </Layout>
